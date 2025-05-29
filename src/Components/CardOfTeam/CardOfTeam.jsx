@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { CardContainer, TeamLogo, TeamName } from "./CardOfTeam.styled";
+import { CardContainer, Page1, TeamLogo, TeamName } from "./CardOfTeam.styled";
+import { useNavigate } from "react-router-dom";
 
 const CardOfTeam = () => {
   const [data, setdata] = useState([]);
-
+  const navigate = useNavigate();
+  const TeamDetailsClick = (id) => {
+   
+    navigate(`/team-matches/${id}`);
+  };
   const fetchAPI = async () => {
     const result = await fetch("https://apis.ccbp.in/ipl");
     const response = await result.json();
@@ -14,25 +19,31 @@ const CardOfTeam = () => {
   useEffect(() => {
     fetchAPI();
   }, []);
-  console.log(data)
+  console.log(data);
   return (
     <>
-      {data.length > 0 && (
-        <>
-          {data.map((res) => {
-            return (
-              <>
-                <CardContainer>
-                  <div>
-                    <TeamLogo src={res.team_image_url} />
-                  </div>
-                  <TeamName>{res.name}</TeamName>
-                </CardContainer>
-              </>
-            );
-          })}
-        </>
-      )}
+      <Page1>
+        {data.length > 0 && (
+          <>
+            {data.map((res) => {
+              return (
+                <>
+                  <CardContainer
+                    onClick={() => {
+                      TeamDetailsClick(res.id);
+                    }}
+                  >
+                    <div>
+                      <TeamLogo src={res.team_image_url} />
+                    </div>
+                    <TeamName>{res.name}</TeamName>
+                  </CardContainer>
+                </>
+              );
+            })}
+          </>
+        )}
+      </Page1>
     </>
   );
 };

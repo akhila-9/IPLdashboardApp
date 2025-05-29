@@ -1,33 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { BodySection, EntireDashBoardContainer, HeaderSection, Heading, Logo } from './App.styled'
-import CardOfTeam from './Components/CardOfTeam/CardOfTeam'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+
+
+import TeamDetails from "./Components/TeamDetails/TeamDetails";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import DashBoard from "./Components/DashBoard/DashBoard";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-    <EntireDashBoardContainer>
-      <HeaderSection>
-<div>
-  <Logo src="https://assets.ccbp.in/frontend/react-js/ipl-logo-img.png"/>
-</div>
-  
-
-<Heading>
-  IPL Dashboard
-</Heading>
-      </HeaderSection>
-      <BodySection>
-<CardOfTeam/>
-      </BodySection>
-
-    </EntireDashBoardContainer>
+      <Router>
+        <Routes>
+          <Route path="/" element={<DashBoard />} />
+          <Route path="/team-matches/:id" element={<TeamDetails />} />
+        </Routes>
+      </Router>
     </>
-    )
+  );
 }
 
-export default App
+export default App;
